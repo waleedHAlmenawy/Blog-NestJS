@@ -9,6 +9,7 @@ import {
   ValidationPipe,
   UsePipes,
   Res,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { LoginDto } from './dto/login.dto';
@@ -29,5 +30,11 @@ export class UsersController {
   @Post('login')
   Login(@Body() user: LoginDto, @Res({ passthrough: true }) res) {
     return this.usersService.Log(user, res);
+  }
+
+  @UsePipes(ValidationPipe)
+  @Get('profile')
+  Profile(@Req() req) {
+    return this.usersService.GetProfile(req);
   }
 }

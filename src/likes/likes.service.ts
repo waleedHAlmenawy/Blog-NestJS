@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateLikeDto } from './dto/create-like.dto';
-import { UpdateLikeDto } from './dto/update-like.dto';
 import { Like } from 'src/schemas/likes.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -26,7 +24,7 @@ export class LikesService {
     if (isLiked) {
       await this.likeSchema.deleteOne({
         user: payload._id,
-        article
+        article,
       });
 
       return { message: 'unliked' };
@@ -43,8 +41,6 @@ export class LikesService {
   async findAll(article: string) {
     const likes = await this.likeSchema.find({ article });
 
-    return {
-      numberOfLikes: likes.length,
-    };
+    return likes;
   }
 }

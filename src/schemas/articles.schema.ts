@@ -11,14 +11,17 @@ export class Article {
   @Prop({ required: true, type: String })
   body: string;
 
-  @Prop({ required: true, type: [{ type: String }] })
-  images: string;
+  @Prop({ required: true, type: String })
+  image: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: string;
 
   @Prop({ default: Date.now })
   date: string;
+
+  @Prop({ default: false })
+  isDeleted: boolean;
 }
 
 export const ArticleSchema = SchemaFactory.createForClass(Article);

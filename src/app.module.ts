@@ -9,21 +9,34 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { APP_GUARD } from '@nestjs/core';
 import { UserGuard } from './users/users.guard';
 import { JwtModule } from '@nestjs/jwt';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { MulterModule } from '@nestjs/platform-express';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    MulterModule.registerAsync({
+      useFactory: () => ({
+        dest: './public',
+      }),
+    }),
+    ConfigModule.forRoot(),
     ArticlesModule,
     UsersModule,
     CommentsModule,
     LikesModule,
     MongooseModule.forRoot(
-      'mongodb+srv://waleedAlmenawy:nf3VSmHh27xHStWa@iti.t3i9ucu.mongodb.net/blog',
+      `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@iti.t3i9ucu.mongodb.net/blog`,
     ),
     JwtModule.register({
       secret: 'secret',
       signOptions: {
         expiresIn: '1d',
       },
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
     }),
   ],
   controllers: [AppController],

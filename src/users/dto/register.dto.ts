@@ -5,18 +5,8 @@ export class RegisterDto {
     @IsNotEmpty()
     @IsString()
     @MinLength(2)
-    firstName: string;
-    
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    lastName: string;
-    
-    @IsString()
-    @IsNotEmpty()
-    @IsIn(['male','female'])
-    gender: string;
-    
+    username: string;
+
     @IsString()
     @IsNotEmpty()
     @Matches(emailRegex)

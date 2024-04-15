@@ -3,19 +3,13 @@ import { ArrayMinSize, IsArray, IsNotEmpty, IsString, MaxLength, MinLength } fro
 export class CreateArticleDto {
     @IsNotEmpty()
     @IsString()
-    @MinLength(10)
-    @MaxLength(350)
+    @MinLength(20)
+    @MaxLength(85)
     title: string;
 
     @IsNotEmpty()
     @IsString()
-    @MinLength(100)
-    @MaxLength(1000)
+    @MinLength(50)
+    @MaxLength(6000)
     body: string;
-
-    @IsArray()
-    @IsString({each: true})
-    @ArrayMinSize(1)
-    @IsNotEmpty()
-    images: string;
 }
