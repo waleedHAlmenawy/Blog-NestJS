@@ -41,7 +41,7 @@ export class ArticlesService {
 
   async findForHomeCard() {
     const articles = shuffle(
-      await this.articleSchema.find({}).populate('user'),
+      await this.articleSchema.find({ isDeleted: false }).populate('user'),
     );
 
     articles.length = 3;
